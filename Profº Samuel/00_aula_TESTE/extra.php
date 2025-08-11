@@ -23,3 +23,41 @@ if (gettype($valor1) === gettype($valor2)) {
 }
 
 ?>
+
+
+<!-- MELHORIA NO CÓDIGO -->
+ <?php
+// Função para interpretar o tipo real do valor digitado
+function interpretarTipo($valor) {
+    // Tenta identificar se é boolean
+    $valLower = strtolower($valor);
+    if ($valLower === 'true' || $valLower === 'false') {
+        return 'boolean';
+    }
+    // Tenta identificar se é inteiro
+    if (ctype_digit($valor)) {
+        return 'integer';
+    }
+    // Tenta identificar se é float
+    if (is_numeric($valor) && strpos($valor, '.') !== false) {
+        return 'double'; // ou float
+    }
+    // Se não for nenhum dos acima, é string
+    return 'string';
+}
+
+// Lê os valores
+$valor1 = readline("Digite o primeiro valor: ");
+$valor2 = readline("Digite o segundo valor: ");
+
+// Interpreta os tipos
+$tipo1 = interpretarTipo($valor1);
+$tipo2 = interpretarTipo($valor2);
+
+// Compara e mostra mensagem
+if ($tipo1 === $tipo2) {
+    echo "Variáveis de tipos iguais! Primeiro valor do tipo $tipo1 e segundo valor do tipo $tipo2.\n";
+} else {
+    echo "ERRO! Variáveis de tipos diferentes. Primeiro valor do tipo $tipo1 e segundo valor do tipo $tipo2.\n";
+}
+?>
