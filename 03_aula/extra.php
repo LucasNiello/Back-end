@@ -2,62 +2,34 @@
 
 Como a função de extrair o tipo da variável ainda não foi ensinada, o aluno deve pesquisar (SEM INTELIGENCIA ARTIFICIAL) como fazer isso.-->
 
-
-
-
-
-<?php
-// Solicita ao usuário que digite o primeiro valor e armazena na variável $valor1
-$valor1 = readline("Digite o primeiro valor: ");
-
-// Solicita ao usuário que digite o segundo valor e armazena na variável $valor2
-$valor2 = readline("Digite o segundo valor: ");
-
-// Verifica se o tipo das duas variáveis é igual usando gettype()
-if (gettype($valor1) === gettype($valor2)) {
-    // Se forem do mesmo tipo, exibe mensagem informando que os tipos são iguais e mostra os tipos de cada variável
-    echo "Variáveis de tipos iguais! Primeiro valor do tipo " . gettype($valor1) . " e segundo valor do tipo " . gettype($valor2) . ".\n";
-} else {
-    // Se os tipos forem diferentes, exibe mensagem de erro informando os tipos diferentes
-    echo "ERRO! Variáveis de tipos diferentes. Primeiro valor do tipo " . gettype($valor1) . " e segundo valor do tipo " . gettype($valor2) . ".\n";
-}
-
-?>
-
-
-<!-- MELHORIA NO CÓDIGO -->
  <?php
 // Função para interpretar o tipo real do valor digitado
-function interpretarTipo($valor) {
-    // Tenta identificar se é boolean
-    $valLower = strtolower($valor);
-    if ($valLower === 'true' || $valLower === 'false') {
-        return 'boolean';
+function interpretarTipo($valor) { // Declara a função que vai identificar o tipo do valor
+    $valLower = strtolower($valor); // Converte o valor para minúsculas para facilitar a comparação com "true" ou "false"
+    if ($valLower === 'true' || $valLower === 'false') { // Verifica se o valor digitado é "true" ou "false"
+        return 'boolean'; // Retorna o tipo boolean
     }
-    // Tenta identificar se é inteiro
-    if (ctype_digit($valor)) {
-        return 'integer';
+    if (ctype_digit($valor)) { // Verifica se o valor contém apenas dígitos (números inteiros positivos)
+        return 'integer'; // Retorna o tipo inteiro
     }
-    // Tenta identificar se é float
-    if (is_numeric($valor) && strpos($valor, '.') !== false) {
-        return 'double'; // ou float
+    if (is_numeric($valor) && strpos($valor, '.') !== false) { // Verifica se é um número e contém ponto decimal
+        return 'double'; // ou float — Retorna o tipo numérico de ponto flutuante
     }
-    // Se não for nenhum dos acima, é string
-    return 'string';
+    return 'string'; // Se não for nenhum dos casos acima, considera como string
 }
 
 // Lê os valores
-$valor1 = readline("Digite o primeiro valor: ");
-$valor2 = readline("Digite o segundo valor: ");
+$valor1 = readline("Digite o primeiro valor: "); // Solicita e lê o primeiro valor do usuário
+$valor2 = readline("Digite o segundo valor: "); // Solicita e lê o segundo valor do usuário
 
 // Interpreta os tipos
-$tipo1 = interpretarTipo($valor1);
-$tipo2 = interpretarTipo($valor2);
+$tipo1 = interpretarTipo($valor1); // Chama a função para descobrir o tipo do primeiro valor
+$tipo2 = interpretarTipo($valor2); // Chama a função para descobrir o tipo do segundo valor
 
 // Compara e mostra mensagem
-if ($tipo1 === $tipo2) {
-    echo "Variáveis de tipos iguais! Primeiro valor do tipo $tipo1 e segundo valor do tipo $tipo2.\n";
-} else {
-    echo "ERRO! Variáveis de tipos diferentes. Primeiro valor do tipo $tipo1 e segundo valor do tipo $tipo2.\n";
+if ($tipo1 === $tipo2) { // Verifica se os tipos identificados são iguais
+    echo "Variáveis de tipos iguais! Primeiro valor do tipo $tipo1 e segundo valor do tipo $tipo2.\n"; // Mensagem para tipos iguais
+} else { // Caso sejam diferentes
+    echo "ERRO! Variáveis de tipos diferentes. Primeiro valor do tipo $tipo1 e segundo valor do tipo $tipo2.\n"; // Mensagem para tipos diferentes
 }
 ?>
