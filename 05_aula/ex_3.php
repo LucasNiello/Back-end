@@ -61,21 +61,9 @@ class Usuario {
         $this->Endereco = $Endereco;
         $this->CEP = $CEP;
     }
-
-    public function exibirInfo() {
-        echo "Nome: {$this->Nome}<br>";
-        echo "CPF: {$this->CPF}<br>";
-        echo "Sexo: {$this->Sexo}<br>";
-        echo "Email: {$this->Email}<br>";
-        echo "Estado Civil: {$this->EstadoCivil}<br>";
-        echo "Cidade: {$this->Cidade}<br>";
-        echo "Estado: {$this->Estado}<br>";
-        echo "Endereço: {$this->Endereco}<br>";
-        echo "CEP: {$this->CEP}<br>";
-    }
 }
 
-// Criando array de usuários
+// Criando array de usuários sem exibir
 $usuarios = [
     new Usuario(
         "Josenildo Afonso Souza",
@@ -111,12 +99,5 @@ $usuarios = [
         "12345-99"
     )
 ];
-
-// Enumerando e exibindo os usuários como fichas
-foreach($usuarios as $indice => $usuario){
-    echo "<strong>Usuário " . ($indice + 1) . ":</strong><br>";
-    $usuario->exibirInfo();
-    echo "<hr>"; // separador visual entre usuários
-}
 
 ?>
