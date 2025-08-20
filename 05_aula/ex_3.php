@@ -36,8 +36,8 @@ Usuário 3:
 - Endereço: Estrada 3, 33
 - CEP: 12345-99
 -->
-
 <?php
+
 class Usuario {
 
     public $Nome;
@@ -63,13 +63,19 @@ class Usuario {
     }
 
     public function exibirInfo() {
-        echo "Nome: {$this->Nome}, CPF: {$this->CPF}, Sexo: {$this->Sexo}, Email: {$this->Email}, ";
-        echo "Estado Civil: {$this->EstadoCivil}, Cidade: {$this->Cidade}, Estado: {$this->Estado}, ";
-        echo "Endereço: {$this->Endereco}, CEP: {$this->CEP}<br>";
+        echo "Nome: {$this->Nome}<br>";
+        echo "CPF: {$this->CPF}<br>";
+        echo "Sexo: {$this->Sexo}<br>";
+        echo "Email: {$this->Email}<br>";
+        echo "Estado Civil: {$this->EstadoCivil}<br>";
+        echo "Cidade: {$this->Cidade}<br>";
+        echo "Estado: {$this->Estado}<br>";
+        echo "Endereço: {$this->Endereco}<br>";
+        echo "CEP: {$this->CEP}<br>";
     }
 }
 
-// Criando os 3 usuários com os dados fornecidos
+// Criando array de usuários
 $usuarios = [
     new Usuario(
         "Josenildo Afonso Souza",
@@ -106,9 +112,11 @@ $usuarios = [
     )
 ];
 
-// Exibindo as informações dos usuários
-foreach($usuarios as $usuario){
+// Enumerando e exibindo os usuários como fichas
+foreach($usuarios as $indice => $usuario){
+    echo "<strong>Usuário " . ($indice + 1) . ":</strong><br>";
     $usuario->exibirInfo();
+    echo "<hr>"; // separador visual entre usuários
 }
 
 ?>
