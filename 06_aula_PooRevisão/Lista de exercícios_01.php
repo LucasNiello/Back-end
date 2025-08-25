@@ -15,6 +15,15 @@ class Cachorro {
     public $castrado;
     public $sexo;
 
+    // Construtor com valores padrão
+    public function __construct($nome = "", $idade = 0, $raca = "", $castrado = false, $sexo = "") {
+        $this->nome = $nome;
+        $this->idade = $idade;
+        $this->raca = $raca;
+        $this->castrado = $castrado;
+        $this->sexo = $sexo;
+    }
+
     // Exercício 5: método latir
     public function latir() {
         echo "O cachorro $this->nome está latindo!\n";
@@ -26,7 +35,7 @@ class Cachorro {
     }
 }
 
-// Classe Usuários
+// Classe Usuarios
 class Usuarios {
     public $nome;
     public $sexo;         // "Masculino" ou "Feminino"
@@ -51,22 +60,25 @@ class Usuarios {
     }
 }
 
-
 // -------------------------
-// Testando os métodos:
+// Testando os métodos
 
-$cachorro1 = new Cachorro();
-$cachorro1->nome = "Rex";
-$cachorro1->raca = "Vira-lata";
-
+// Cachorros
+$cachorro1 = new Cachorro("Rex", 3, "Vira-lata", true, "Masculino");
 $cachorro1->latir();
 $cachorro1->marcarTerritorio();
 
+$cachorro2 = new Cachorro();
+$cachorro2->nome = "Bolt";
+$cachorro2->raca = "Labrador";
+$cachorro2->latir();
+$cachorro2->marcarTerritorio();
+
+// Usuários
 $usuario1 = new Usuarios();
 $usuario1->nome = "Carlos";
 $usuario1->sexo = "Masculino";
 $usuario1->estadoCivil = "Casado";
-
 $usuario1->testandoReservista();
 $usuario1->casamento(5);
 
@@ -74,7 +86,6 @@ $usuario2 = new Usuarios();
 $usuario2->nome = "Maria";
 $usuario2->sexo = "Feminino";
 $usuario2->estadoCivil = "Solteiro";
-
 $usuario2->testandoReservista();
 $usuario2->casamento(0);
 
