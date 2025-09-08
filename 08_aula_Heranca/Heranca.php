@@ -139,7 +139,7 @@ class gato extends Animal {
         $this->tipo_ronronar = $tipo_ronronar;
     }
 
-    
+
 }
 
 ?>
