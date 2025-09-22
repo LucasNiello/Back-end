@@ -7,8 +7,7 @@ class Disciplinas {
     private $notaFinal;
     private $presenca;
 
-    // Variavel errada no construtor -> $notaInicial ao inves de $notaFinal
-    public function __construct($nomeDisciplina, $cargaHoraria, $professor, $periodo, $notaInicial, $presenca) {
+    public function __construct($nomeDisciplina, $cargaHoraria, $professor, $periodo, $notaFinal, $presenca) {
         $this->nomeDisciplina = $nomeDisciplina;
         $this->cargaHoraria = $cargaHoraria;
         $this->professor = $professor;
@@ -26,9 +25,8 @@ class Disciplinas {
         return $this->presenca >= 60;
     }
 
-    // Operador Ternario incorreto -> @ ao inves de ?
     public function situacaoFinal() {
-        return ($this->aprovado() && $this->presencaValida()) @ "Aprovado" : "Reprovado";
+        return ($this->aprovado() && $this->presencaValida()) ? "Aprovado" : "Reprovado";
     }
 
     // Método resumo
@@ -81,7 +79,9 @@ class Disciplinas {
         $this->professor = $professor;
     }
 
-    // Faltou o método setPeriodo
+    public function setPeriodo($periodo) {
+        $this->periodo = $periodo;
+    }
 
     public function setNotaFinal($notaFinal) {
         $this->notaFinal = $notaFinal;
@@ -95,7 +95,7 @@ class Disciplinas {
 // Testando
 $d1 = new Disciplinas("PHP", 80, "Samuka", "Noturno", 8.5, 75);
 $d2 = new Disciplinas("JavaScript", 60, "Brunão", "Matutino", 5.0, 55);
-$d3 = new Disciplinas("HTML e CSS", 40, "Cleiton", "Vespertino", 7.0, 65);
+$d3 = new Disciplinas("HTML e CSS", 40, "Bruno", "Vespertino", 7.0, 65);
 
 echo $d1->resumo();
 echo $d2->resumo();

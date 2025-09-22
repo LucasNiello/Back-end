@@ -4,7 +4,8 @@ class Disciplinas {
 private $nomeDisciplina; private $cargaHoraria; private $professor; private $periodo;
 private $notaFinal; private $presenca;
 
-public function 	construct($nomeDisciplina, $cargaHoraria, $professor, $periodo, $notaInicial, $presenca) {
+public function 	construct($nomeDisciplina, $cargaHoraria, $professor, $periodo,
+$notaInicial, $presenca) {
 $this->nomeDisciplina = $nomeDisciplina;
 $this->cargaHoraria = $cargaHoraria;
 $this->professor = $professor;
