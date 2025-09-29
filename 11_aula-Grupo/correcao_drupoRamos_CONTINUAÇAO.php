@@ -16,9 +16,9 @@ class Eletrodomestico
 // =======================================================================================================================================================
         $this->setNome($nome);
         $this->setMarca($marca);
-        $this->setPotencia($voltagem); // Erro aqui
+        $this->setPotencia($potencia); // Corrigido
         $this->setGarantia($garantia);
-        $this->setVoltagem($potencia); // Erro aqui
+        $this->setVoltagem($voltagem); // Corrigido
         $this->setPreco($preco);
     }
 
@@ -110,12 +110,12 @@ class Eletrodomestico
 // =======================================================================================================================================================
     public function ligarDispositivo()
     {
-        echo "\n\n{$this->nome} foi DESLIGADO(A)!";  // Erro aqui
+        echo "\n\n{$this->nome} foi LIGADO(A)!";  // Corrigido
     }
 
     public function desligarDispositivo()
     {
-        echo "\n{$this->nome} foi LIGADO(A)!"; // Erro aqui
+        echo "\n{$this->nome} foi DESLIGADO(A)!"; // Corrigido
     }
 }
 
@@ -126,29 +126,25 @@ echo "----MICROONDAS----";
 $eletro1 = new Eletrodomestico("Microondas", "Eletrolux", 1600, true, 127, 521.55);
 $eletro1->ligarDispositivo();
 $eletro1->desligarDispositivo();
-$eletro1->exibirDados();    // Erro aqui. Falta o echo
+echo $eletro1->exibirDados();    // Corrigido
 
 echo "\n\n----GELADEIRA----";
 $eletro2 = new Eletrodomestico("Geladeira", "Brastemp", 250, false, 220, 3695.69);
 $eletro2->ligarDispositivo();
 $eletro2->desligarDispositivo();
-$eletro2->exibirDados();    // Erro aqui . Falta o echo
+echo $eletro2->exibirDados();    // Corrigido
 
 echo "\n\n----AR CONDICIONADO----";
 $eletro3 = new Eletrodomestico("Ar Condicionado", "Sansung", 2000, true, 220, 2599);
 $eletro3->ligarDispositivo();
 $eletro3->desligarDispositivo();
-$eletro3->exibirDados();    // Erro aqui . Falta o echo
+echo $eletro3->exibirDados();    // Corrigido
 
 // Fim do código da equipe RAMOS
 
 
-// ========================================================================================================================================================
-// ========================================================================================================================================================
-// ========================================================================================================================================================
-
-
-// Inicio do código da equipe LUCAS
+// CONTINUAÇÃO
+//Criar duas novas subclasses que herdem da classe Eletrodomestico: liquidificador e churrasqueira de controle remoto.
 
 
 
