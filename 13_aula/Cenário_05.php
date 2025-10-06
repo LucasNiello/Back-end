@@ -169,9 +169,9 @@ $professor->devolver($livro);
 // José tenta devolver a revista sem ter pegado (falha)
 $aluno->devolver($revista);
 ?>
-<?php
-/*
-CENÁRIO 5 – Biblioteca
+
+
+<!-- CENÁRIO 5 – Biblioteca
 Classes: Obra, Livro, Revista, Usuario, Aluno, Professor
 
 RELACIONAMENTOS:
@@ -197,5 +197,4 @@ RELACIONAMENTOS:
    - Justificativa: Usuario realiza empréstimos de obras, mas a obra existe independentemente do usuário.
 
 Obs: Não há Composição ou Agregação explícita.
-*/
-?>
+ -->

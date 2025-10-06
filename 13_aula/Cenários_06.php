@@ -130,8 +130,7 @@ $ingresso->gerar();   // Gera o ingresso
 $ingresso->validar(); // Valida o ingresso
 ?>
 
-<?php
-/*
+<!-- 
 CENÁRIO 6 – Cinema
 Classes: Filme, Sessao, Ingresso, Cliente
 
@@ -154,5 +153,4 @@ RELACIONAMENTOS:
    - Justificativa: Cliente compra ingresso para sessão, mas existe independentemente.
 
 Obs: Relações foram identificadas considerando o ciclo de vida e dependência entre objetos.
-*/
-?>
+ -->
