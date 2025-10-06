@@ -48,3 +48,17 @@ $heroi->doarBrinquedo("Shopping");
 $crianca->receberBrinquedo();
 ?>
 
+<?php
+/*
+CENÁRIO 2 – Heróis e Personagens
+Classes: Heroi, Crianca
+
+RELACIONAMENTOS:
+
+1. Heroi → Crianca
+   - Tipo: Associação
+   - Justificativa: Herói “doa brinquedo” para a criança, mas a criança existe independentemente do herói.
+
+Obs: Não há Agregação ou Composição nesse cenário, é uma relação de Associação direta.
+*/
+?>

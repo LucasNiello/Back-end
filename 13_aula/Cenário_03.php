@@ -49,3 +49,22 @@ $john->amar($smurf);
 $smurf->superarDificuldades();
 $john->comerJunto();
 ?>
+
+<?php
+/*
+CENÁRIO 3 – Fantasia e Destino
+Classes: Personagem, Clima
+
+RELACIONAMENTOS:
+
+1. Personagem → Personagem
+   - Tipo: Associação
+   - Justificativa: Personagem “ama” outro personagem, mas cada um existe independentemente.
+
+2. Personagem → Clima
+   - Tipo: Associação
+   - Justificativa: Personagem sofre mudanças de clima, mas o clima existe independentemente do personagem.
+
+Obs: Não há Agregação ou Composição aqui.
+*/
+?>

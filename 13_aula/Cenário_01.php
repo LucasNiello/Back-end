@@ -64,3 +64,25 @@ $turista->comer($comida);
 $turista->nadar($praia);
 ?>
 
+<?php
+/*
+CENÁRIO 1 – Viagem pelo Mundo
+Classes: Local, ComidaTipica, RioOuPraia, Turista
+
+RELACIONAMENTOS:
+
+1. Turista → Local
+   - Tipo: Associação
+   - Justificativa: Turista “visita” um local, mas o local existe independentemente do turista.
+
+2. Turista → ComidaTipica
+   - Tipo: Associação
+   - Justificativa: Turista “come” a comida típica, a comida existe independente do turista.
+
+3. Turista → RioOuPraia
+   - Tipo: Associação
+   - Justificativa: Turista “nada” no rio ou praia, que existem separadamente.
+
+Obs: Não há Agregação ou Composição nesse cenário, todos os relacionamentos são Associações simples.
+*/
+?>

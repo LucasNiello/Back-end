@@ -38,3 +38,16 @@ $pessoa->crescer();
 $pessoa->fazerEscolha("ser programador");
 $pessoa->doarSangue();
 ?>
+
+<?php
+/*
+CENÁRIO 4 – Ciclo da Vida
+Classes: Pessoa
+
+RELACIONAMENTOS:
+
+- Todas as ações (nascer, crescer, fazerEscolha, doarSangue, engravidar) são métodos da própria classe.
+- Não há relacionamento entre classes externas, logo:
+  - Não há Associação, Agregação ou Composição.
+*/
+?>
