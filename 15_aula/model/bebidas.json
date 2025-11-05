@@ -1,0 +1,44 @@
+[
+    {
+        "nome": "Guaran\u00e1",
+        "categoria": "lata",
+        "volume": "350",
+        "valor": 9,
+        "qtd": 58
+    },
+    {
+        "nome": "Guaran\u00e1",
+        "categoria": "lata",
+        "volume": "350",
+        "valor": 9,
+        "qtd": 58
+    },
+    {
+        "nome": "Guaran\u00e1",
+        "categoria": "lata",
+        "volume": "350",
+        "valor": 9,
+        "qtd": 58
+    },
+    {
+        "nome": "h2o",
+        "categoria": "garrafa",
+        "volume": "600",
+        "valor": 6,
+        "qtd": 38
+    },
+    {
+        "nome": "h2o",
+        "categoria": "garrafa",
+        "volume": "600",
+        "valor": 6,
+        "qtd": 38
+    },
+    {
+        "nome": "h2o",
+        "categoria": "garrafa",
+        "volume": "600",
+        "valor": 6,
+        "qtd": 38
+    }
+]

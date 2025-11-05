@@ -64,5 +64,53 @@ class BebidaDAO {
         // Salva os dados filtrados (já re-indexados pelo array_filter)
         $this->salvarDados($dadosFiltrados);
     }
+    /**
+     * Busca uma bebida específica pelo seu ID
+     * @param string $id
+     * @return Bebida|null
+     */
+    public function buscarPorId($id) {
+        $dados = $this->lerDados();
+        
+        foreach ($dados as $item) {
+            if ($item['id'] === $id) {
+                // Encontrado! Retorna o objeto Bebida
+                return new Bebida(
+                    $item['nome'],
+                    $item['categoria'],
+                    $item['volume'],
+                    $item['valor'],
+                    $item['qtd'],
+                    $item['id']
+                );
+            }
+        }
+        return null; // Não encontrado
+    }
+
+    /**
+     * Atualiza uma bebida existente no JSON
+     * @param Bebida $bebidaAtualizada
+     */
+    public function atualizar(Bebida $bebidaAtualizada) {
+        $id = $bebidaAtualizada->getId();
+        $dados = $this->lerDados();
+
+        // Encontra o índice do item a ser atualizado
+        $indiceParaAtualizar = -1;
+        foreach ($dados as $indice => $item) {
+            if ($item['id'] === $id) {
+                $indiceParaAtualizar = $indice;
+                break;
+            }
+        }
+
+        // Se encontrou, atualiza
+        if ($indiceParaAtualizar !== -1) {
+            $dados[$indiceParaAtualizar] = $bebidaAtualizada->toArray();
+            $this->salvarDados($dados);
+        }
+    }
 }
+
 ?>

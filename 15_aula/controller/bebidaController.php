@@ -30,5 +30,20 @@ class BebidaController {
     public function excluirBebida($id) {
         $this->dao->excluir($id);
     }
+    /**
+     * Novo método para buscar por ID
+     */
+    public function buscarBebidaPorId($id) {
+        return $this->dao->buscarPorId($id);
+    }
+
+    /**
+     * Novo método para atualizar
+     */
+    public function atualizarBebida($id, $nome, $categoria, $volume, $valor, $qtd) {
+        // Passamos o ID original para o construtor para manter o mesmo objeto
+        $bebida = new Bebida($nome, $categoria, $volume, $valor, $qtd, $id);
+        $this->dao->atualizar($bebida);
+    }
 }
 ?>
