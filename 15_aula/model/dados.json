@@ -1,10 +1,42 @@
 [
     {
-        "id": "690ba4c8d8cb6",
-        "nome": "Grey Goose",
-        "categoria": "Destilados",
-        "volume": "740",
-        "valor": 180.9,
-        "qtd": 40
+        "id": "691210451d72c",
+        "nome": "água mnieral sem gás",
+        "categoria": "bebidas naturais",
+        "volume": "500",
+        "valor": 3,
+        "qtd": 60
+    },
+    {
+        "id": "691210b46b5e5",
+        "nome": "cachaça artesanal",
+        "categoria": "destilados",
+        "volume": "710",
+        "valor": 79.8,
+        "qtd": 49
+    },
+    {
+        "id": "691210fb1b080",
+        "nome": "suco natural (consultar sabores)",
+        "categoria": "sucos",
+        "volume": "500",
+        "valor": 12,
+        "qtd": 90
+    },
+    {
+        "id": "6912113ab9205",
+        "nome": "urina de criaturas mágicas",
+        "categoria": "magia",
+        "volume": "1000",
+        "valor": 10000,
+        "qtd": 3
+    },
+    {
+        "id": "69121b65c5270",
+        "nome": "guaraná",
+        "categoria": "refrigerante",
+        "volume": "1000",
+        "valor": 20,
+        "qtd": 46
     }
 ]
