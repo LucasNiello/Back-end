@@ -1,0 +1,111 @@
+1. bebidas.php (O Molde / Model)
+Este arquivo define o "molde" de uma bebida. Ele não faz nada sozinho, apenas define a estrutura dos dados.
+
+class Bebida: A "ordem" para criar um novo tipo de dado, um molde chamado Bebida.
+
+private $id; (e outros): Propriedades (variáveis) privadas. private é uma "ordem" de visibilidade que significa que essas variáveis só podem ser acessadas ou modificadas por funções (métodos) de dentro da própria class Bebida.
+
+public function __construct(...): O Construtor. É uma "ação" (método) especial que é executada automaticamente sempre que um novo objeto é criado (ex: new Bebida(...)). Sua "ordem" é receber os dados e guardá-los nas propriedades privadas.
+
+$this->nome = $nome;: Uma "ordem" de atribuição. $this é uma variável especial que se refere ao objeto atual que está sendo criado. Esta linha diz: "Guarde o valor da variável $nome (que recebemos) dentro da propriedade nome deste objeto".
+
+$id ?? uniqid(): Uma ordem lógica (Operador de Coalescência Nula). Lê-se como: "Use o valor de $id se ele existir e não for nulo; caso contrário (se for nulo), execute a 'ordem' uniqid() para gerar um novo ID."
+
+uniqid(): Uma função (ação) do PHP que gera uma string de identificação única.
+
+public function getId() {...}: Um Método Getter. É uma "ação" pública que permite que códigos fora da classe leiam o valor da propriedade private $id.
+
+public function toArray(): Um Método Utilitário. Uma "ação" que converte o objeto Bebida em um formato de array simples, o que é útil para salvar no arquivo JSON.
+
+2. bebidasDAO.php (O Gerenciador de Dados / DAO)
+DAO significa Data Access Object (Objeto de Acesso a Dados). Esta classe é a única que sabe como e onde os dados são salvos (neste caso, em um arquivo dados.json).
+
+require_once("bebidas.php"): Uma "ordem" do PHP para carregar e incluir o arquivo bebidas.php. _once garante que ele seja carregado apenas uma vez.
+
+private $arquivo = __DIR__ . "/dados.json";: Uma variável (propriedade) que armazena o caminho do "banco de dados".
+
+__DIR__: Uma constante mágica (variável especial) do PHP que contém o caminho completo do diretório onde o arquivo bebidasDAO.php está.
+
+file_exists(...): Uma função (ação) do PHP que verifica se um arquivo existe.
+
+private function lerDados(): Um método privado. Uma "ação" interna que lê o conteúdo do JSON, decodifica-o e o retorna como um array PHP.
+
+file_get_contents(...): Uma função (ação) do PHP que lê todo o conteúdo de um arquivo para uma string.
+
+json_decode(...): Uma função (ação) do PHP que converte uma string JSON em um dado PHP (neste caso, um array, por causa do true).
+
+private function salvarDados($dados): Um método privado. Uma "ação" interna que pega um array PHP, codifica-o para JSON e o salva de volta no arquivo.
+
+json_encode(...): Uma função (ação) do PHP que converte um array PHP em uma string JSON.
+
+array_values(...): Uma função (ação) do PHP que re-indexa um array, garantindo que ele seja salvo como um array JSON [] e não um objeto {}.
+
+public function listar(): Uma ação pública (CRUD: Read All). Pega todos os dados do JSON, e para cada item, cria um new Bebida() (objeto). Retorna uma lista de objetos.
+
+public function adicionar(Bebida $novaBebida): Uma ação pública (CRUD: Create). Recebe um objeto Bebida, o converte para array (->toArray()), adiciona à lista de dados e salva.
+
+public function excluir($id): Uma ação pública (CRUD: Delete).
+
+array_filter(...): Uma função (ação) do PHP que filtra um array. A "ordem" aqui é: "Crie um novo array mantendo apenas os itens cujo ID seja diferente do ID que queremos excluir".
+
+public function buscarPorId($id): Uma ação pública (CRUD: Read Single). Procura um item pelo ID e o retorna como um objeto Bebida.
+
+public function atualizar(Bebida $bebidaAtualizada): Uma ação pública (CRUD: Update). Encontra o item pelo ID e o substitui pelos dados do objeto $bebidaAtualizada.
+
+3. bebidaController.php (O Controlador / Cérebro)
+Este arquivo é o "cérebro" que faz a ponte entre a interface (index.php) e o sistema de dados (bebidasDAO.php).
+
+class BebidaController: O molde para o "cérebro" da aplicação.
+
+private $dao: Uma variável (propriedade) que guardará o objeto BebidaDAO. O Controller usa o DAO, ele delega o trabalho de "salvar" e "ler" para o DAO.
+
+public function __construct(): O Construtor. A "ordem" é: "Assim que eu (Controller) for criado, crie imediatamente uma new BebidaDAO() e guarde-a na minha variável $dao".
+
+public function listarBebidas(): Uma ação que a View pode chamar. A "ordem" é simples: "Peça ao $dao para listar e me retorne o resultado".
+
+public function adicionarBebida(...): Uma ação que a View chama. Recebe os dados brutos do formulário, dá a "ordem" de new Bebida(...) (criar o objeto) e "ordena" que o $dao o adicione.
+
+public function excluirBebida($id): Uma ação que "ordena" ao $dao que execute a exclusão.
+
+public function buscarBebidaPorId($id): Uma ação que "ordena" ao $dao que encontre uma bebida.
+
+public function atualizarBebida(...): Uma ação que recebe dados brutos, cria um objeto Bebida (passando o ID existente) e "ordena" ao $dao que o atualize.
+
+4. index.php (A Interface / View e Roteador)
+Este é o único arquivo que o usuário vê. Ele tem duas responsabilidades: 1) Decidir o que fazer (Roteador) e 2) Desenhar o HTML (View).
+
+$controller = new BebidaController(): A "ordem" inicial mais importante. Cria o objeto "cérebro" que será usado por toda a página.
+
+$modoEdicao = false;: Uma variável de estado (flag). É uma "ordem" interna que define se a página deve mostrar o formulário de "Adicionar" ou de "Editar".
+
+$bebidaParaEditar = null;: Uma variável que guardará o objeto da bebida que o usuário clicou para editar.
+
+if (isset($_GET['acao'])): Uma verificação de "ordem" (condicional). isset() é uma ação que verifica se uma variável existe. $_GET é uma variável superglobal (um array) que contém todos os parâmetros passados na URL (ex: ?acao=excluir). Esta linha significa: "O usuário passou uma 'ordem' (ação) pela URL?".
+
+$_GET['acao'] === 'excluir': Uma verificação (comparação). "A 'ordem' na URL é para 'excluir'?".
+
+header("Location: index.php");: Uma "ordem" de redirecionamento. Ela diz ao navegador do usuário: "Vá para a página 'index.php' (limpa)". Isso é parte do padrão PRG (Post-Redirect-Get), que previne que o formulário seja enviado novamente se o usuário atualizar a página (F5).
+
+exit;: Uma "ordem" de parada. Diz ao PHP: "Pare de executar o script agora". É crucial usar após um header() para garantir que o redirecionamento aconteça imediatamente.
+
+if ($_SERVER["REQUEST_METHOD"] === "POST"): Uma verificação de "ordem". $_SERVER["REQUEST_METHOD"] é uma variável superglobal que diz como o usuário acessou a página. Se for "POST", significa que ele enviou um formulário.
+
+$_POST: Uma variável superglobal (um array) que contém todos os dados enviados de um formulário (<form method="POST">). As chaves do array são os atributos name dos campos (<input name="nome"> vira $_POST['nome']).
+
+floatval($_POST['valor']): Uma ação de conversão. Dados de formulário são sempre texto (string). floatval() é uma "ordem" para converter esse texto em um número decimal (float).
+
+intval($_POST['qtd']): Similar, é uma "ordem" para converter o texto em um número inteiro (int).
+
+$lista = $controller->listarBebidas();: Uma ação. Pede ao controlador a lista de bebidas e armazena na variável $lista para ser usada no HTML.
+
+<?= $modoEdicao ? 'Editar' : 'Cadastro' ?>: Uma "ordem" de exibição (PHP Short Echo) com uma operação ternária.
+
+<?= ... ?> é um atalho para <?php echo ...; ?>.
+
+O ternário (? :) é uma "ordem" condicional curta: "Se a variável $modoEdicao for true, mostre 'Editar'; senão (:), mostre 'Cadastro'".
+
+htmlspecialchars(...): Uma função (ação) de segurança. Ela "limpa" o texto antes de exibi-lo no HTML, convertendo caracteres especiais (como < e >) em entidades HTML. Isso previne que um usuário insira código malicioso (XSS).
+
+foreach ($lista as $b): ... endforeach;: Uma "ordem" de repetição (loop). "Para cada item ($b) dentro da variável $lista, repita este bloco de HTML (o <tr>...</tr>)".
+
+empty($lista): Uma função (ação) que verifica se a variável $lista está vazia.

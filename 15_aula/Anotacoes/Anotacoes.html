@@ -1,2 +1,195 @@
-1. isset
-$_POST
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise do Código PHP</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <main class="container">
+        <h1>Análise Estrutural: Aplicação de Bebidas (MVC)</h1>
+
+        <section class="file-analysis">
+            <h2>1. <code>bebidas.php</code> (O Molde / Model)</h2>
+            <p>Este arquivo define o "molde" de uma bebida. Ele não <em>faz</em> nada sozinho, apenas define a estrutura dos dados.</p>
+
+            <dl class="term-list">
+                <dt><code>class Bebida</code></dt>
+                <dd>A "ordem" para criar um novo tipo de dado, um molde chamado <code>Bebida</code>.</dd>
+
+                <dt><code>private $id;</code> (e outros)</dt>
+                <dd><strong>Propriedades</strong> (variáveis) privadas. <code>private</code> é uma "ordem" de visibilidade que significa que essas variáveis só podem ser acessadas ou modificadas por funções (métodos) de dentro da própria <code>class Bebida</code>.</dd>
+
+                <dt><code>public function __construct(...)</code></dt>
+                <dd>O <strong>Construtor</strong>. É uma "ação" (método) especial que é executada automaticamente sempre que um novo objeto é criado (ex: <code>new Bebida(...)</code>). Sua "ordem" é receber os dados e guardá-los nas propriedades privadas.</dd>
+
+                <dt><code>$this->nome = $nome;</code></dt>
+                <dd>Uma "ordem" de atribuição. <code>$this</code> é uma <strong>variável</strong> especial que se refere ao objeto atual que está sendo criado. Esta linha diz: "Guarde o valor da variável <code>$nome</code> (que recebemos) dentro da propriedade <code>nome</code> <em>deste</em> objeto".</dd>
+
+                <dt><code>$id ?? uniqid()</code></dt>
+                <dd>Uma <strong>ordem</strong> lógica (Operador de Coalescência Nula). Lê-se como: "Use o valor de <code>$id</code> se ele existir e não for nulo; caso contrário (se for nulo), execute a 'ordem' <code>uniqid()</code> para gerar um novo ID."</dd>
+
+                <dt><code>uniqid()</code></dt>
+                <dd>Uma <strong>função</strong> (ação) do PHP que gera uma string de identificação única.</dd>
+
+                <dt><code>public function getId() {...}</code></dt>
+                <dd>Um <strong>Método Getter</strong>. É uma "ação" pública que permite que códigos <em>fora</em> da classe leiam o valor da propriedade <code>private $id</code>.</dd>
+
+                <dt><code>public function toArray()</code></dt>
+                <dd>Um <strong>Método Utilitário</strong>. Uma "ação" que converte o objeto <code>Bebida</code> em um formato de array simples, o que é útil para salvar no arquivo JSON.</dd>
+            </dl>
+        </section>
+
+        <section class="file-analysis">
+            <h2>2. <code>bebidasDAO.php</code> (O Gerenciador de Dados / DAO)</h2>
+            <p>DAO significa <em>Data Access Object</em> (Objeto de Acesso a Dados). Esta classe é a única que sabe <em>como</em> e <em>onde</em> os dados são salvos (neste caso, em um arquivo <code>dados.json</code>).</p>
+
+            <dl class="term-list">
+                <dt><code>require_once("bebidas.php")</code></dt>
+                <dd>Uma "ordem" do PHP para carregar e incluir o arquivo <code>bebidas.php</code>. <code>_once</code> garante que ele seja carregado apenas uma vez.</dd>
+
+                <dt><code>private $arquivo = __DIR__ . "/dados.json";</code></dt>
+                <dd>Uma <strong>variável</strong> (propriedade) que armazena o caminho do "banco de dados".</dd>
+
+                <dt><code>__DIR__</code></dt>
+                <dd>Uma <strong>constante mágica</strong> (variável especial) do PHP que contém o caminho completo do diretório onde o arquivo <code>bebidasDAO.php</code> está.</dd>
+
+                <dt><code>file_exists(...)</code></dt>
+                <dd>Uma <strong>função</strong> (ação) do PHP que verifica se um arquivo existe.</dd>
+
+                <dt><code>private function lerDados()</code></dt>
+                <dd>Um método privado. Uma "ação" interna que lê o conteúdo do JSON, decodifica-o e o retorna como um array PHP.</dd>
+
+                <dt><code>file_get_contents(...)</code></dt>
+                <dd>Uma <strong>função</strong> (ação) do PHP que lê todo o conteúdo de um arquivo para uma string.</dd>
+
+                <dt><code>json_decode(...)</code></dt>
+                <dd>Uma <strong>função</strong> (ação) do PHP que converte uma string JSON em um dado PHP (neste caso, um array, por causa do <code>true</code>).</dd>
+
+                <dt><code>private function salvarDados($dados)</code></dt>
+                <dd>Um método privado. Uma "ação" interna que pega um array PHP, codifica-o para JSON e o salva de volta no arquivo.</dd>
+
+                <dt><code>json_encode(...)</code></dt>
+                <dd>Uma <strong>função</strong> (ação) do PHP que converte um array PHP em uma string JSON.</dd>
+
+                <dt><code>array_values(...)</code></dt>
+                <dd>Uma <strong>função</strong> (ação) do PHP que re-indexa um array, garantindo que ele seja salvo como um array JSON <code>[]</code> e não um objeto <code>{}</code>.</dd>
+
+                <dt><code>public function listar()</code></dt>
+                <dd>Uma <strong>ação</strong> pública (CRUD: Read All). Pega todos os dados do JSON, e para cada item, cria um <code>new Bebida()</code> (objeto). Retorna uma lista de objetos.</dd>
+
+                <dt><code>public function adicionar(Bebida $novaBebida)</code></dt>
+                <dd>Uma <strong>ação</strong> pública (CRUD: Create). Recebe um objeto <code>Bebida</code>, o converte para array (<code>->toArray()</code>), adiciona à lista de dados e salva.</dd>
+
+                <dt><code>public function excluir($id)</code></dt>
+                <dd>Uma <strong>ação</strong> pública (CRUD: Delete).</dd>
+
+                <dt><code>array_filter(...)</code></dt>
+                <dd>Uma <strong>função</strong> (ação) do PHP que filtra um array. A "ordem" aqui é: "Crie um novo array mantendo apenas os itens cujo ID <em>seja diferente</em> do ID que queremos excluir".</dd>
+
+                <dt><code>public function buscarPorId($id)</code></dt>
+                <dd>Uma <strong>ação</strong> pública (CRUD: Read Single). Procura um item pelo ID e o retorna como um objeto <code>Bebida</code>.</dd>
+
+                <dt><code>public function atualizar(Bebida $bebidaAtualizada)</code></dt>
+                <dd>Uma <strong>ação</strong> pública (CRUD: Update). Encontra o item pelo ID e o substitui pelos dados do objeto <code>$bebidaAtualizada</code>.</dd>
+            </dl>
+        </section>
+
+        <section class="file-analysis">
+            <h2>3. <code>bebidaController.php</code> (O Controlador / Cérebro)</h2>
+            <p>Este arquivo é o "cérebro" que faz a ponte entre a interface (<code>index.php</code>) e o sistema de dados (<code>bebidasDAO.php</code>).</p>
+
+            <dl class="term-list">
+                <dt><code>class BebidaController</code></dt>
+                <dd>O molde para o "cérebro" da aplicação.</dd>
+
+                <dt><code>private $dao</code></dt>
+                <dd>Uma <strong>variável</strong> (propriedade) que guardará o objeto <code>BebidaDAO</code>. O Controller <em>usa</em> o DAO, ele <em>delega</em> o trabalho de "salvar" e "ler" para o DAO.</dd>
+
+                <dt><code>public function __construct()</code></dt>
+                <dd>O <strong>Construtor</strong>. A "ordem" é: "Assim que eu (Controller) for criado, crie imediatamente uma <code>new BebidaDAO()</code> e guarde-a na minha variável <code>$dao</code>".</dd>
+
+                <dt><code>public function listarBebidas()</code></dt>
+                <dd>Uma <strong>ação</strong> que a View pode chamar. A "ordem" é simples: "Peça ao <code>$dao</code> para listar e me retorne o resultado".</dd>
+
+                <dt><code>public function adicionarBebida(...)</code></dt>
+                <dd>Uma <strong>ação</strong> que a View chama. Recebe os dados <em>brutos</em> do formulário, dá a "ordem" de <code>new Bebida(...)</code> (criar o objeto) e "ordena" que o <code>$dao</code> o adicione.</dd>
+
+                <dt><code>public function excluirBebida($id)</code></dt>
+                <dd>Uma <strong>ação</strong> que "ordena" ao <code>$dao</code> que execute a exclusão.</dd>
+
+                <dt><code>public function buscarBebidaPorId($id)</code></dt>
+                <dd>Uma <strong>ação</strong> que "ordena" ao <code>$dao</code> que encontre uma bebida.</dd>
+
+                <dt><code>public function atualizarBebida(...)</code></dt>
+                <dd>Uma <strong>ação</strong> que recebe dados brutos, cria um objeto <code>Bebida</code> (passando o ID existente) e "ordena" ao <code>$dao</code> que o atualize.</dd>
+            </dl>
+        </section>
+
+        <section class="file-analysis">
+            <h2>4. <code>index.php</code> (A Interface / View e Roteador)</h2>
+            <p>Este é o único arquivo que o usuário vê. Ele tem duas responsabilidades: 1) Decidir o que fazer (Roteador) e 2) Desenhar o HTML (View).</p>
+
+            <dl class="term-list">
+                <dt><code>$controller = new BebidaController()</code></dt>
+                <dd>A "ordem" inicial mais importante. Cria o objeto "cérebro" que será usado por toda a página.</dd>
+
+                <dt><code>$modoEdicao = false;</code></dt>
+                <dd>Uma <strong>variável de estado</strong> (flag). É uma "ordem" interna que define se a página deve mostrar o formulário de "Adicionar" ou de "Editar".</dd>
+
+                <dt><code>$bebidaParaEditar = null;</code></dt>
+                <dd>Uma <strong>variável</strong> que guardará o objeto da bebida que o usuário clicou para editar.</dd>
+
+                <dt><code>if (isset($_GET['acao']))</code></dt>
+                <dd>Uma <strong>verificação de "ordem"</strong> (condicional). <code>isset()</code> é uma ação que verifica se uma variável existe. <code>$_GET</code> é uma <strong>variável superglobal</strong> (um array) que contém todos os parâmetros passados na URL (ex: <code>?acao=excluir</code>). Esta linha significa: "O usuário passou uma 'ordem' (ação) pela URL?".</dd>
+
+                <dt><code>$_GET['acao'] === 'excluir'</code></dt>
+                <dd>Uma <strong>verificação</strong> (comparação). "A 'ordem' na URL é para 'excluir'?".</dd>
+
+                <dt><code>header("Location: index.php");</code></dt>
+                <dd>Uma <strong>"ordem" de redirecionamento</strong>. Ela diz ao navegador do usuário: "Vá para a página 'index.php' (limpa)". Isso é parte do padrão <strong>PRG (Post-Redirect-Get)</strong>, que previne que o formulário seja enviado novamente se o usuário atualizar a página (F5).</dd>
+
+                <dt><code>exit;</code></dt>
+                <dd>Uma <strong>"ordem" de parada</strong>. Diz ao PHP: "Pare de executar o script <em>agora</em>". É crucial usar após um <code>header()</code> para garantir que o redirecionamento aconteça imediatamente.</dd>
+
+                <dt><code>if ($_SERVER["REQUEST_METHOD"] === "POST")</code></dt>
+                <dd>Uma <strong>verificação de "ordem"</strong>. <code>$_SERVER["REQUEST_METHOD"]</code> é uma <strong>variável superglobal</strong> que diz <em>como</em> o usuário acessou a página. Se for "POST", significa que ele enviou um formulário.</dd>
+
+                <dt><code>$_POST</code></dt>
+                <dd>Uma <strong>variável superglobal</strong> (um array) que contém todos os dados enviados de um formulário (<code>&lt;form method="POST"&gt;</code>). As chaves do array são os atributos <code>name</code> dos campos (<code>&lt;input name="nome"&gt;</code> vira <code>$_POST['nome']</code>).</dd>
+
+                <dt><code>floatval($_POST['valor'])</code></dt>
+                <dd>Uma <strong>ação de conversão</strong>. Dados de formulário são sempre texto (string). <code>floatval()</code> é uma "ordem" para converter esse texto em um número decimal (float).</dd>
+
+                <dt><code>intval($_POST['qtd'])</code></dt>
+                <dd>Similar, é uma "ordem" para converter o texto em um número inteiro (int).</dd>
+
+                <dt><code>$lista = $controller->listarBebidas();</code></dt>
+                <dd>Uma <strong>ação</strong>. Pede ao controlador a lista de bebidas e armazena na <strong>variável</strong> <code>$lista</code> para ser usada no HTML.</dd>
+
+                <dt><code>&lt;?= $modoEdicao ? 'Editar' : 'Cadastro' ?&gt;</code></dt>
+                <dd>Uma <strong>"ordem" de exibição</strong> (PHP Short Echo) com uma <strong>operação ternária</strong>.
+                    <ul>
+                        <li><code>&lt;?= ... ?&gt;</code> é um atalho para <code>&lt;?php echo ...; ?&gt;</code>.</li>
+                        <li>O ternário (<code>? :</code>) é uma "ordem" condicional curta: "Se a <strong>variável</strong> <code>$modoEdicao</code> for <code>true</code>, mostre 'Editar'; senão (<code>:</code>), mostre 'Cadastro'".</li>
+                    </ul>
+                </dd>
+
+                <dt><code>htmlspecialchars(...)</code></dt>
+                <dd>Uma <strong>função (ação) de segurança</strong>. Ela "limpa" o texto antes de exibi-lo no HTML, convertendo caracteres especiais (como <code>&lt;</code> e <code>&gt;</code>) em entidades HTML. Isso previne que um usuário insira código malicioso (XSS).</dd>
+
+                <dt><code>foreach ($lista as $b): ... endforeach;</code></dt>
+                <dd>Uma <strong>"ordem" de repetição</strong> (loop). "Para cada item (<code>$b</code>) dentro da <strong>variável</strong> <code>$lista</code>, repita este bloco de HTML (o <code>&lt;tr&gt;...&lt;/tr&gt;</code>)".</dd>
+
+                <dt><code>empty($lista)</code></dt>
+                <dd>Uma <strong>função (ação)</strong> que verifica se a <strong>variável</strong> <code>$lista</code> está vazia.</dd>
+            </dl>
+        </section>
+
+    </main>
+
+</body>
+</html>
