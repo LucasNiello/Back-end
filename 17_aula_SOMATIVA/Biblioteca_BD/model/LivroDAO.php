@@ -81,7 +81,7 @@ class LivroDAO {
     }
 
     /**
-     * Atualiza os dados de um livro (Update - U do CRUD).
+     * Atualiza os dados de um livro (Update - U => CRUD).
      * @param Livro $livro O objeto Livro com os dados e o ID para o WHERE.
      */
     public function atualizarLivro(Livro $livro) {

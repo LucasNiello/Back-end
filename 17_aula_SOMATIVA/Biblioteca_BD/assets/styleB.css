@@ -1,56 +1,64 @@
 /* ====================================
-   0. IMPORTAÇÃO DE FONTES (AUTO-LOAD)
+   0. IMPORTAÇÃO DE FONTES
    ==================================== */
-/* Isso carrega as fontes Oswald e Roboto diretamente pelo CSS */
+/* Carrega as fontes 'Oswald' (títulos) e 'Roboto' (texto) do Google Fonts.
+   Isso evita ter que colocar o <link> em cada arquivo HTML/PHP. */
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Roboto+Condensed:wght@400;700&display=swap');
 
 /* ====================================
-   1. Variáveis & Paleta "The Last of Us"
+   1. Variáveis Globais (:root)
    ==================================== */
 :root {
-    /* Paleta Atmosférica */
-    --bg-world: #1a1c1a;        /* Preto esverdeado */
-    --panel-bg: #2b2e2b;        /* Cinza concreto sujo */
+    /* Define variáveis CSS para facilitar a troca de cores em todo o site.
+       Se mudar aqui, muda em todos os lugares que usam var(--nome-da-variavel). */
+    
+    /* Cores do Fundo e Painéis */
+    --bg-world: #1a1c1a;        
+    --panel-bg: #2b2e2b;        
     --panel-border: #3e423e;    
     
-    /* Acentos */
-    --firefly-yellow: #e6c229;  /* Amarelo Vagalume */
-    --moss-green: #6b8c42;      /* Verde Musgo */
-    --rust-red: #8c3b3b;        /* Vermelho Ferrugem */
+    /* Cores de Destaque (Acentos) */
+    --firefly-yellow: #e6c229;  /* Amarelo principal */
+    --moss-green: #6b8c42;      /* Verde para sucessos/edição */
+    --rust-red: #8c3b3b;        /* Vermelho para erros/exclusão */
     --concrete-gray: #8c8c8c;   
     
-    /* Texto */
+    /* Cores de Texto */
     --text-main: #e0e0e0;       
     --text-dark: #121212;       
 }
 
+/* Estilos base do corpo da página */
 body {
     background-color: var(--bg-world);
+    /* Cria um degradê radial para dar profundidade ao fundo */
     background-image: radial-gradient(circle at center, #252925 0%, #111311 100%);
     color: var(--text-main);
-    font-family: 'Roboto Condensed', sans-serif; /* Usa a fonte importada acima */
+    font-family: 'Roboto Condensed', sans-serif; /* Define a fonte padrão */
     margin: 0;
     padding: 20px;
-    letter-spacing: 0.5px;
-    min-height: 100vh;
+    letter-spacing: 0.5px; /* Espaçamento leve entre letras para leitura */
+    min-height: 100vh; /* Garante que o fundo cubra 100% da altura da tela */
 }
 
 /* ====================================
-   2. Reset de Links
+   2. Links (Hyperlinks)
    ==================================== */
 a {
     color: var(--firefly-yellow);
-    text-decoration: none;
+    text-decoration: none; /* Remove o sublinhado padrão */
     font-weight: bold;
-    transition: all 0.2s;
-    border-bottom: 1px dotted transparent;
+    transition: all 0.2s; /* Suaviza a animação de cor ao passar o mouse */
+    border-bottom: 1px dotted transparent; /* Prepara uma borda invisível */
 }
 
+/* Estado ao passar o mouse sobre o link */
 a:hover {
     color: #fff;
-    border-bottom-color: var(--firefly-yellow);
+    border-bottom-color: var(--firefly-yellow); /* Faz a borda aparecer */
 }
 
+/* Linha horizontal divisória */
 hr {
     border: none;
     border-top: 1px solid var(--panel-border);
@@ -58,19 +66,20 @@ hr {
 }
 
 /* ====================================
-   3. Layout
+   3. Layout Principal (.container)
    ==================================== */
 .container {
-    max-width: 1200px;
-    margin: 40px auto;
+    max-width: 1200px; /* Largura máxima do conteúdo */
+    margin: 40px auto; /* Centraliza horizontalmente (auto nas laterais) */
     background-color: var(--panel-bg);
     padding: 50px;
     border: 1px solid var(--panel-border); 
-    border-radius: 2px; 
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    position: relative;
+    border-radius: 2px; /* Cantos levemente arredondados */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Sombra externa para destacar do fundo */
+    position: relative; /* Necessário para posicionar o elemento ::before */
 }
 
+/* Cria a barra colorida no topo do container (efeito estético) */
 .container::before {
     content: '';
     position: absolute;
@@ -81,9 +90,10 @@ hr {
     background: linear-gradient(90deg, var(--moss-green), var(--firefly-yellow));
 }
 
+/* Estilos compartilhados para Títulos H1 e H2 */
 h1, h2 {
-    font-family: 'Oswald', sans-serif; /* Usa a fonte importada acima */
-    text-transform: uppercase;
+    font-family: 'Oswald', sans-serif; /* Fonte de destaque */
+    text-transform: uppercase; /* Força letras maiúsculas */
     color: #fff;
     margin-top: 0;
     letter-spacing: 2px;
@@ -91,7 +101,7 @@ h1, h2 {
 
 h1 {
     font-size: 2.2rem;
-    border-bottom: 2px solid var(--panel-border);
+    border-bottom: 2px solid var(--panel-border); /* Linha abaixo do título principal */
     padding-bottom: 15px;
 }
 
@@ -99,7 +109,7 @@ h2 {
     font-size: 1.5rem;
     margin-top: 40px;
     color: var(--firefly-yellow);
-    border-left: 4px solid var(--firefly-yellow);
+    border-left: 4px solid var(--firefly-yellow); /* Barra lateral amarela */
     padding-left: 15px;
 }
 
@@ -107,11 +117,11 @@ h2 {
    4. Formulários
    ==================================== */
 .form-group {
-    margin-bottom: 25px;
+    margin-bottom: 25px; /* Espaço entre cada campo do formulário */
 }
 
 .form-group label {
-    display: block;
+    display: block; /* Faz o label ocupar a linha inteira (acima do input) */
     color: var(--concrete-gray);
     margin-bottom: 8px;
     font-size: 0.9rem;
@@ -119,63 +129,69 @@ h2 {
     font-weight: bold;
 }
 
+/* Estilização de todos os tipos de entrada de dados */
 input[type="text"],
 input[type="number"],
 input[type="date"],
 select {
     width: 100%;
     padding: 12px;
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.2); /* Fundo semitransparente escuro */
     border: 1px solid var(--panel-border);
     border-radius: 2px;
     color: #fff;
     font-family: 'Roboto Condensed', sans-serif;
     font-size: 1rem;
-    box-sizing: border-box;
+    box-sizing: border-box; /* Garante que padding não aumente a largura total */
     transition: border-color 0.2s;
 }
 
+/* Estado de foco (quando o usuário clica no campo) */
 input:focus, select:focus {
-    outline: none;
-    border-color: var(--firefly-yellow);
-    background: rgba(0, 0, 0, 0.4);
+    outline: none; /* Remove a borda azul padrão do navegador */
+    border-color: var(--firefly-yellow); /* Borda amarela */
+    background: rgba(0, 0, 0, 0.4); /* Escurece um pouco mais o fundo */
 }
 
 /* ====================================
    5. Botões
    ==================================== */
+/* Estilos BASE para todos os botões e links com cara de botão */
 button, 
 .btn-salvar, 
 .btn-editar, 
 .btn-excluir, 
 .btn-cancelar,
 .btn-devolver {
-    display: inline-block;
-    padding: 2.5px 5px;
+    display: inline-block; /* Permite definir largura/altura mas flui com o texto */
+    padding: 2.5px 5px;   /* Tamanho reduzido conforme solicitado */
     border: none;
-    cursor: pointer;
+    cursor: pointer;      /* Muda o cursor para mãozinha */
     font-family: 'Oswald', sans-serif;
     font-weight: 500;
     text-transform: uppercase;
     font-size: 0.9rem;
     letter-spacing: 1px;
-    transition: 0.2s;
+    transition: 0.2s;     /* Animação suave */
     text-align: center;
-    margin-right: 8px;
+    margin-right: 8px;    /* Espaço à direita entre botões */
     text-decoration: none;
     border-radius: 2px;
 }
 
+/* Botão Salvar (Amarelo) */
 .btn-salvar {
     background-color: var(--firefly-yellow);
     color: var(--text-dark);
     font-weight: bold;
 }
+/* Efeito de "levantar" ao passar o mouse */
 .btn-salvar:hover {
     background-color: #ffdb4d;
     transform: translateY(-1px);
 }
 
+/* Botão Editar (Verde) */
 .btn-editar {
     background-color: var(--moss-green);
     color: #fff;
@@ -184,6 +200,7 @@ button,
     background-color: #7fa64f;
 }
 
+/* Botão Excluir (Vermelho transparente) */
 .btn-excluir {
     background-color: rgba(140, 59, 59, 0.2);
     border: 1px solid var(--rust-red);
@@ -194,6 +211,7 @@ button,
     color: #fff;
 }
 
+/* Botão Cancelar (Cinza Escuro) */
 .btn-cancelar {
     background-color: #444;
     color: #ccc;
@@ -203,6 +221,7 @@ button,
     color: #fff;
 }
 
+/* Botão Devolver (Azul/Cinza) */
 .btn-devolver {
     background-color: #4a5c66;
     color: #fff;
@@ -216,17 +235,18 @@ button,
    ==================================== */
 table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: collapse; /* Remove espaços entre bordas das células */
     margin-top: 25px;
     font-size: 0.95rem;
 }
 
 th, td {
-    padding: 2px;
+    padding: 2px; /* Padding reduzido para linhas mais finas */
     text-align: left;
     border-bottom: 1px solid var(--panel-border);
 }
 
+/* Cabeçalho da tabela */
 th {
     background-color: rgba(0, 0, 0, 0.2);
     color: var(--concrete-gray);
@@ -237,23 +257,25 @@ th {
     letter-spacing: 1px;
 }
 
+/* Efeito ao passar o mouse na linha da tabela */
 tr:hover {
     background-color: rgba(255, 255, 255, 0.03);
 }
 
-/* Mantém botões lado a lado */
+/* TRUQUE CSS: Garante que a coluna de ações (última coluna) 
+   não quebre linha, mantendo os botões lado a lado. */
 table td:last-child {
     white-space: nowrap; 
-    width: 1%;
+    width: 1%; /* Força a ocupar o mínimo espaço necessário */
 }
 
 /* ====================================
-   7. Feedback
+   7. Feedback (Mensagens de Erro/Sucesso)
    ==================================== */
 .feedback {
     padding: 15px 20px;
     margin-bottom: 25px;
-    border-left: 4px solid;
+    border-left: 4px solid; /* Apenas uma linha lateral colorida */
     background: rgba(0, 0, 0, 0.3);
     font-family: 'Roboto Condensed', sans-serif;
 }
@@ -268,8 +290,9 @@ table td:last-child {
     color: #e57373;
 }
 
+/* Classe aplicada via PHP em empréstimos atrasados */
 .vencido {
     color: var(--rust-red);
     font-weight: bold;
-    background-color: rgba(140, 59, 59, 0.1);
+    background-color: rgba(140, 59, 59, 0.1); /* Destaca a linha inteira */
 }
