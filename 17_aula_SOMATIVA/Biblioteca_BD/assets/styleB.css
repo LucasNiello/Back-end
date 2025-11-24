@@ -1,0 +1,234 @@
+/* ====================================
+   1. Variáveis & Tema Cyberpunk
+   ==================================== */
+:root {
+    --bg-dark: #0d0d15;       /* Preto quase absoluto */
+    --panel-bg: #161625;      /* Fundo dos painéis */
+    --neon-purple: #bc13fe;   /* Roxo Laser */
+    --neon-green: #0aff68;    /* Verde Matrix */
+    --text-main: #e0e0e0;
+    --text-dim: #a0a0a0;
+    --danger: #ff0055;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Orbitron', sans-serif; /* Fonte Sci-fi */
+    margin: 0;
+    padding: 20px;
+    letter-spacing: 1px;
+}
+
+/* ====================================
+   2. Reset de Links (Correção do Erro Anterior)
+   ==================================== */
+/* Links normais (navegação) agora são apenas texto */
+a {
+    color: var(--neon-green);
+    text-decoration: none;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+}
+
+a:hover {
+    color: var(--neon-purple);
+    text-shadow: 0 0 8px var(--neon-purple);
+}
+
+/* ====================================
+   3. Layout Principal
+   ==================================== */
+.container {
+    max-width: 1200px;
+    margin: 30px auto;
+    background-color: var(--panel-bg);
+    padding: 40px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    /* Efeito de brilho sutil ao redor do container */
+    box-shadow: 0 0 15px rgba(188, 19, 254, 0.1);
+}
+
+h1, h2 {
+    color: var(--neon-purple);
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--neon-purple);
+    padding-bottom: 10px;
+    margin-top: 0;
+    text-shadow: 0 0 5px var(--neon-purple);
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin-top: 40px;
+    color: var(--neon-green);
+    border-color: var(--neon-green);
+    text-shadow: 0 0 5px var(--neon-green);
+}
+
+/* ====================================
+   4. Formulários
+   ==================================== */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    color: var(--neon-green);
+    margin-bottom: 8px;
+    font-size: 0.85rem;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+    width: 100%;
+    padding: 12px;
+    background: #08080a;
+    border: 1px solid #333;
+    color: #fff;
+    font-family: 'Orbitron', sans-serif;
+    box-sizing: border-box; /* Garante que o padding não estoure a largura */
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--neon-purple);
+    box-shadow: 0 0 10px rgba(188, 19, 254, 0.4);
+}
+
+/* ====================================
+   5. Botões (Onde a mágica acontece)
+   ==================================== */
+/* Estilo Base para todos os botões */
+button, 
+.btn-salvar, 
+.btn-editar, 
+.btn-excluir, 
+.btn-cancelar,
+.btn-devolver {
+    display: inline-block; /* Garante lado a lado */
+    padding: 10px 20px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    transition: 0.3s;
+    text-align: center;
+    margin-right: 5px; /* Espaço entre botões */
+    text-decoration: none; /* Remove sublinhado de links que são botões */
+}
+
+/* Botão Salvar (Roxo Neon) */
+.btn-salvar {
+    background: transparent;
+    border-color: var(--neon-purple);
+    color: var(--neon-purple);
+    box-shadow: 0 0 5px var(--neon-purple) inset;
+}
+.btn-salvar:hover {
+    background: var(--neon-purple);
+    color: #fff;
+    box-shadow: 0 0 20px var(--neon-purple);
+}
+
+/* Botão Editar (Verde Neon) */
+.btn-editar {
+    background: transparent;
+    border-color: var(--neon-green);
+    color: var(--neon-green);
+}
+.btn-editar:hover {
+    background: var(--neon-green);
+    color: #000;
+    box-shadow: 0 0 15px var(--neon-green);
+}
+
+/* Botão Excluir (Vermelho Neon) */
+.btn-excluir {
+    background: transparent;
+    border-color: var(--danger);
+    color: var(--danger);
+}
+.btn-excluir:hover {
+    background: var(--danger);
+    color: #fff;
+    box-shadow: 0 0 15px var(--danger);
+}
+
+/* Botão Cancelar (Cinza) */
+.btn-cancelar {
+    border-color: #555;
+    color: #888;
+}
+.btn-cancelar:hover {
+    border-color: #fff;
+    color: #fff;
+}
+
+/* ====================================
+   6. Tabela (Grid Futurista)
+   ==================================== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border: 1px solid #333;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #222;
+}
+
+th {
+    background-color: #1a1a2e;
+    color: var(--neon-purple);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+}
+
+tr:hover {
+    background-color: rgba(10, 255, 104, 0.05); /* Leve brilho verde ao passar o mouse */
+}
+
+/* --- CORREÇÃO CRÍTICA PARA BOTÕES LADO A LADO --- */
+/* Força a última coluna a não quebrar linha */
+table td:last-child {
+    white-space: nowrap; 
+    width: 1%; /* Faz a coluna ocupar apenas o espaço necessário */
+}
+/* ------------------------------------------------ */
+
+/* ====================================
+   7. Feedback (Mensagens)
+   ==================================== */
+.feedback {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid;
+    background: rgba(0,0,0,0.5);
+}
+
+.feedback-success {
+    border-color: var(--neon-green);
+    color: var(--neon-green);
+    box-shadow: 0 0 10px var(--neon-green) inset;
+}
+
+.feedback-error {
+    border-color: var(--danger);
+    color: var(--danger);
+    box-shadow: 0 0 10px var(--danger) inset;
+}
+
+.vencido {
+    color: var(--danger);
+    font-weight: bold;
+}
