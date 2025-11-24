@@ -1,84 +1,122 @@
 /* ====================================
-   1. Variáveis & Tema Cyberpunk
+   0. IMPORTAÇÃO DE FONTES (AUTO-LOAD)
+   ==================================== */
+/* Isso carrega as fontes Oswald e Roboto diretamente pelo CSS */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Roboto+Condensed:wght@400;700&display=swap');
+
+/* ====================================
+   1. Variáveis & Paleta "The Last of Us"
    ==================================== */
 :root {
-    --bg-dark: #0d0d15;       /* Preto quase absoluto */
-    --panel-bg: #161625;      /* Fundo dos painéis */
-    --neon-purple: #bc13fe;   /* Roxo Laser */
-    --neon-green: #0aff68;    /* Verde Matrix */
-    --text-main: #e0e0e0;
-    --text-dim: #a0a0a0;
-    --danger: #ff0055;
+    /* Paleta Atmosférica */
+    --bg-world: #1a1c1a;        /* Preto esverdeado */
+    --panel-bg: #2b2e2b;        /* Cinza concreto sujo */
+    --panel-border: #3e423e;    
+    
+    /* Acentos */
+    --firefly-yellow: #e6c229;  /* Amarelo Vagalume */
+    --moss-green: #6b8c42;      /* Verde Musgo */
+    --rust-red: #8c3b3b;        /* Vermelho Ferrugem */
+    --concrete-gray: #8c8c8c;   
+    
+    /* Texto */
+    --text-main: #e0e0e0;       
+    --text-dark: #121212;       
 }
 
 body {
-    background-color: var(--bg-dark);
+    background-color: var(--bg-world);
+    background-image: radial-gradient(circle at center, #252925 0%, #111311 100%);
     color: var(--text-main);
-    font-family: 'Orbitron', sans-serif; /* Fonte Sci-fi */
+    font-family: 'Roboto Condensed', sans-serif; /* Usa a fonte importada acima */
     margin: 0;
     padding: 20px;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
+    min-height: 100vh;
 }
 
 /* ====================================
-   2. Reset de Links (Correção do Erro Anterior)
+   2. Reset de Links
    ==================================== */
-/* Links normais (navegação) agora são apenas texto */
 a {
-    color: var(--neon-green);
+    color: var(--firefly-yellow);
     text-decoration: none;
-    transition: all 0.3s;
-    font-size: 0.9rem;
+    font-weight: bold;
+    transition: all 0.2s;
+    border-bottom: 1px dotted transparent;
 }
 
 a:hover {
-    color: var(--neon-purple);
-    text-shadow: 0 0 8px var(--neon-purple);
+    color: #fff;
+    border-bottom-color: var(--firefly-yellow);
+}
+
+hr {
+    border: none;
+    border-top: 1px solid var(--panel-border);
+    margin: 30px 0;
 }
 
 /* ====================================
-   3. Layout Principal
+   3. Layout
    ==================================== */
 .container {
     max-width: 1200px;
-    margin: 30px auto;
+    margin: 40px auto;
     background-color: var(--panel-bg);
-    padding: 40px;
-    border: 1px solid #333;
-    border-radius: 4px;
-    /* Efeito de brilho sutil ao redor do container */
-    box-shadow: 0 0 15px rgba(188, 19, 254, 0.1);
+    padding: 50px;
+    border: 1px solid var(--panel-border); 
+    border-radius: 2px; 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--moss-green), var(--firefly-yellow));
 }
 
 h1, h2 {
-    color: var(--neon-purple);
+    font-family: 'Oswald', sans-serif; /* Usa a fonte importada acima */
     text-transform: uppercase;
-    border-bottom: 2px solid var(--neon-purple);
-    padding-bottom: 10px;
+    color: #fff;
     margin-top: 0;
-    text-shadow: 0 0 5px var(--neon-purple);
+    letter-spacing: 2px;
+}
+
+h1 {
+    font-size: 2.2rem;
+    border-bottom: 2px solid var(--panel-border);
+    padding-bottom: 15px;
 }
 
 h2 {
     font-size: 1.5rem;
     margin-top: 40px;
-    color: var(--neon-green);
-    border-color: var(--neon-green);
-    text-shadow: 0 0 5px var(--neon-green);
+    color: var(--firefly-yellow);
+    border-left: 4px solid var(--firefly-yellow);
+    padding-left: 15px;
 }
 
 /* ====================================
    4. Formulários
    ==================================== */
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .form-group label {
     display: block;
-    color: var(--neon-green);
+    color: var(--concrete-gray);
     margin-bottom: 8px;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 input[type="text"],
@@ -87,148 +125,151 @@ input[type="date"],
 select {
     width: 100%;
     padding: 12px;
-    background: #08080a;
-    border: 1px solid #333;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--panel-border);
+    border-radius: 2px;
     color: #fff;
-    font-family: 'Orbitron', sans-serif;
-    box-sizing: border-box; /* Garante que o padding não estoure a largura */
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
 }
 
 input:focus, select:focus {
     outline: none;
-    border-color: var(--neon-purple);
-    box-shadow: 0 0 10px rgba(188, 19, 254, 0.4);
+    border-color: var(--firefly-yellow);
+    background: rgba(0, 0, 0, 0.4);
 }
 
 /* ====================================
-   5. Botões (Onde a mágica acontece)
+   5. Botões
    ==================================== */
-/* Estilo Base para todos os botões */
 button, 
 .btn-salvar, 
 .btn-editar, 
 .btn-excluir, 
 .btn-cancelar,
 .btn-devolver {
-    display: inline-block; /* Garante lado a lado */
-    padding: 10px 20px;
-    border: 1px solid transparent;
+    display: inline-block;
+    padding: 2.5px 5px;
+    border: none;
     cursor: pointer;
-    font-family: 'Orbitron', sans-serif;
-    font-weight: bold;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
     text-transform: uppercase;
-    font-size: 0.8rem;
-    transition: 0.3s;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: 0.2s;
     text-align: center;
-    margin-right: 5px; /* Espaço entre botões */
-    text-decoration: none; /* Remove sublinhado de links que são botões */
+    margin-right: 8px;
+    text-decoration: none;
+    border-radius: 2px;
 }
 
-/* Botão Salvar (Roxo Neon) */
 .btn-salvar {
-    background: transparent;
-    border-color: var(--neon-purple);
-    color: var(--neon-purple);
-    box-shadow: 0 0 5px var(--neon-purple) inset;
+    background-color: var(--firefly-yellow);
+    color: var(--text-dark);
+    font-weight: bold;
 }
 .btn-salvar:hover {
-    background: var(--neon-purple);
-    color: #fff;
-    box-shadow: 0 0 20px var(--neon-purple);
+    background-color: #ffdb4d;
+    transform: translateY(-1px);
 }
 
-/* Botão Editar (Verde Neon) */
 .btn-editar {
-    background: transparent;
-    border-color: var(--neon-green);
-    color: var(--neon-green);
+    background-color: var(--moss-green);
+    color: #fff;
 }
 .btn-editar:hover {
-    background: var(--neon-green);
-    color: #000;
-    box-shadow: 0 0 15px var(--neon-green);
+    background-color: #7fa64f;
 }
 
-/* Botão Excluir (Vermelho Neon) */
 .btn-excluir {
-    background: transparent;
-    border-color: var(--danger);
-    color: var(--danger);
+    background-color: rgba(140, 59, 59, 0.2);
+    border: 1px solid var(--rust-red);
+    color: #ff6b6b;
 }
 .btn-excluir:hover {
-    background: var(--danger);
+    background-color: var(--rust-red);
     color: #fff;
-    box-shadow: 0 0 15px var(--danger);
 }
 
-/* Botão Cancelar (Cinza) */
 .btn-cancelar {
-    border-color: #555;
-    color: #888;
+    background-color: #444;
+    color: #ccc;
 }
 .btn-cancelar:hover {
-    border-color: #fff;
+    background-color: #555;
     color: #fff;
+}
+
+.btn-devolver {
+    background-color: #4a5c66;
+    color: #fff;
+}
+.btn-devolver:hover {
+    background-color: #5d7380;
 }
 
 /* ====================================
-   6. Tabela (Grid Futurista)
+   6. Tabela
    ==================================== */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
-    border: 1px solid #333;
+    margin-top: 25px;
+    font-size: 0.95rem;
 }
 
 th, td {
-    padding: 15px;
+    padding: 2px;
     text-align: left;
-    border-bottom: 1px solid #222;
+    border-bottom: 1px solid var(--panel-border);
 }
 
 th {
-    background-color: #1a1a2e;
-    color: var(--neon-purple);
-    font-size: 0.8rem;
-    letter-spacing: 2px;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: var(--concrete-gray);
+    font-family: 'Oswald', sans-serif;
+    font-weight: normal;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
 }
 
 tr:hover {
-    background-color: rgba(10, 255, 104, 0.05); /* Leve brilho verde ao passar o mouse */
+    background-color: rgba(255, 255, 255, 0.03);
 }
 
-/* --- CORREÇÃO CRÍTICA PARA BOTÕES LADO A LADO --- */
-/* Força a última coluna a não quebrar linha */
+/* Mantém botões lado a lado */
 table td:last-child {
     white-space: nowrap; 
-    width: 1%; /* Faz a coluna ocupar apenas o espaço necessário */
+    width: 1%;
 }
-/* ------------------------------------------------ */
 
 /* ====================================
-   7. Feedback (Mensagens)
+   7. Feedback
    ==================================== */
 .feedback {
-    padding: 15px;
-    margin-bottom: 20px;
-    border: 1px solid;
-    background: rgba(0,0,0,0.5);
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    border-left: 4px solid;
+    background: rgba(0, 0, 0, 0.3);
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 .feedback-success {
-    border-color: var(--neon-green);
-    color: var(--neon-green);
-    box-shadow: 0 0 10px var(--neon-green) inset;
+    border-color: var(--moss-green);
+    color: #aed581;
 }
 
 .feedback-error {
-    border-color: var(--danger);
-    color: var(--danger);
-    box-shadow: 0 0 10px var(--danger) inset;
+    border-color: var(--rust-red);
+    color: #e57373;
 }
 
 .vencido {
-    color: var(--danger);
+    color: var(--rust-red);
     font-weight: bold;
+    background-color: rgba(140, 59, 59, 0.1);
 }
