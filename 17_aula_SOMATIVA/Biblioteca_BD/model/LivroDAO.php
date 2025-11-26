@@ -136,3 +136,9 @@ class LivroDAO {
         $stmt->execute();
     }
 }
+
+// Ao usar PDO em vez das funções antigas do PHP (mysqli ou mysql_), você ganha acesso a duas camadas de segurança fundamentais:
+
+// Proteção contra SQL Injection (Via Prepared Statements): Embora a proteção real aconteça no DAO (quando usamos prepare e bindValue), é esta classe Conexao com PDO que torna isso possível. O PDO separa o código SQL dos dados do usuário.
+
+// Tratamento Seguro de Erros (Information Disclosure): A configuração PDO::ERRMODE_EXCEPTION impede que o PHP "vomite" dados sensíveis do banco na tela do usuário se algo der errado.

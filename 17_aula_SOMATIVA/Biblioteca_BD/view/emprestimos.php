@@ -24,26 +24,31 @@
             </div>
         <?php endif; ?>
 
-        <h2>Realizar Novo Empréstimo</h2>
-        <form method="POST" action="index.php?controller=emprestimo&action=emprestar">
+       <h2>Realizar Novo Empréstimo</h2>
+        <form method="POST" action="index.php?controller=emprestimo&action=emprestar" id="formEmprestimo">
+            
             <div class="form-group">
-                <label for="livro_id">Livro (Disponível em Estoque):</label>
-                <select name="livro_id" id="livro_id" required>
-                    <option value="">Selecione um Livro</option>
+                <label for="busca_livro">Livro (Digite Título ou Autor):</label>
+                
+                <input type="text" id="busca_livro" list="lista_livros_data" 
+                       placeholder="Digite para buscar..." required autocomplete="off">
+                
+                <datalist id="lista_livros_data">
                     <?php 
-                    // Loop para preencher o dropdown com livros que têm estoque > 0.
                     foreach ($livrosDisponiveis as $livro): 
                         if ($livro->getQuantidade() > 0): 
                     ?>
-                        <option value="<?= $livro->getId() ?>">
-                            <?= htmlspecialchars($livro->getTitulo()) ?> (Disp: <?= $livro->getQuantidade() ?>)
+                        <option data-id="<?= $livro->getId() ?>" 
+                                value="<?= htmlspecialchars($livro->getTitulo()) ?> - <?= htmlspecialchars($livro->getAutor()) ?>">
+                            (Disp: <?= $livro->getQuantidade() ?>)
                         </option>
                     <?php 
                         endif;
                     endforeach; ?>
-                </select>
+                </datalist>
+
+                <input type="hidden" name="livro_id" id="livro_id_oculto">
             </div>
-            
             <div class="form-group">
                 <label for="usuario_nome">Nome do Aluno/Usuário:</label>
                 <input type="text" id="usuario_nome" name="usuario_nome" required>
@@ -52,12 +57,52 @@
             <div class="form-group">
                 <label for="data_prevista_devolucao">Data Prevista de Devolução:</label>
                 <input type="date" id="data_prevista_devolucao" name="data_prevista_devolucao" 
-                        min="<?= date('Y-m-d', strtotime('+1 day')) ?>" required> </div>
+                       min="<?= date('Y-m-d', strtotime('+1 day')) ?>" required>
+            </div>
             
             <div class="form-actions">
                 <button type="submit" class="btn-salvar">Registrar Empréstimo</button>
             </div>
         </form>
+
+        <script>
+            // Pega os elementos do DOM
+            const inputBusca = document.getElementById('busca_livro');
+            const inputHidden = document.getElementById('livro_id_oculto');
+            const datalist = document.getElementById('lista_livros_data');
+
+            // Quando o usuário digita ou seleciona algo
+            inputBusca.addEventListener('input', function() {
+                const valorDigitado = this.value;
+                
+                // Procura nas opções do datalist se o valor digitado bate com alguma opção
+                const opcoes = datalist.options;
+                let encontrou = false;
+
+                for (let i = 0; i < opcoes.length; i++) {
+                    if (opcoes[i].value === valorDigitado) {
+                        // Se encontrou, pega o ID que guardamos no 'data-id'
+                        inputHidden.value = opcoes[i].getAttribute('data-id');
+                        encontrou = true;
+                        break;
+                    }
+                }
+                
+                // Se o usuário limpou o campo ou digitou algo inválido, limpa o ID
+                if (!encontrou) {
+                    inputHidden.value = "";
+                }
+            });
+
+            // Validação extra no envio do formulário
+            document.getElementById('formEmprestimo').addEventListener('submit', function(e) {
+                if (inputHidden.value === "") {
+                    e.preventDefault(); // Impede o envio
+                    alert("Por favor, selecione um livro válido da lista de sugestões.");
+                    inputBusca.focus();
+                }
+            });
+        </script>
 
         ---
         
