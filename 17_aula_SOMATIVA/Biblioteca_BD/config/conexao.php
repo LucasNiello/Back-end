@@ -11,7 +11,7 @@ class Conexao {
     private const HOST = 'localhost';
     private const DB_NAME = 'biblioteca_db'; 
     private const USER = 'root'; 
-    private const PASS = 'SenaiSP'; // PC lab.DEV(SEnaiSP) | PC lab.Samuel (1234)
+    private const PASS = '1234'; // PC lab.DEV(SEnaiSP) | PC lab.Samuel (1234)
     // ---------------------------------------
 
     /**
