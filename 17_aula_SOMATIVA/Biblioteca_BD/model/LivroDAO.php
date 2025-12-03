@@ -1,7 +1,7 @@
 <?php
-// Garantia de inclusão das dependências
-require_once __DIR__ . '/../config/Conexao.php'; // Inclui a Conexão PDO (Singleton).
-require_once 'Livro.php'; // Inclui a Entidade Livro.
+// Garantia de inclusão das dependências usando caminho absoluto (evita erros de rota)
+require_once __DIR__ . '/../config/Conexao.php'; 
+require_once __DIR__ . '/Livro.php'; 
 
 /**
  * LivroDAO (Data Access Object)
@@ -22,12 +22,14 @@ class LivroDAO {
     public function criarLivro(Livro $livro) {
         $sql = "INSERT INTO livros (titulo, autor, ano, genero, quantidade) VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->conexao->prepare($sql);
+        
         // Usa bindValue para segurança (evitar SQL Injection).
         $stmt->bindValue(1, $livro->getTitulo());
         $stmt->bindValue(2, $livro->getAutor());
         $stmt->bindValue(3, $livro->getAno());
         $stmt->bindValue(4, $livro->getGenero());
         $stmt->bindValue(5, $livro->getQuantidade());
+        
         $stmt->execute();
     }
 
@@ -68,7 +70,9 @@ class LivroDAO {
         $row = $stmt->fetch(PDO::FETCH_ASSOC); // Busca apenas uma linha.
 
         if ($row) {
-            $livro = new Livro(); // Cria o objeto e carrega os dados encontrados.
+            // CORREÇÃO FEITA AQUI: Adicionado espaço entre 'new' e 'Livro'
+            $livro = new Livro(); 
+            
             $livro->setId($row['id']);
             $livro->setTitulo($row['titulo']);
             $livro->setAutor($row['autor']);
@@ -136,9 +140,3 @@ class LivroDAO {
         $stmt->execute();
     }
 }
-
-// Ao usar PDO em vez das funções antigas do PHP (mysqli ou mysql_), você ganha acesso a duas camadas de segurança fundamentais:
-
-// Proteção contra SQL Injection (Via Prepared Statements): Embora a proteção real aconteça no DAO (quando usamos prepare e bindValue), é esta classe Conexao com PDO que torna isso possível. O PDO separa o código SQL dos dados do usuário.
-
-// Tratamento Seguro de Erros (Information Disclosure): A configuração PDO::ERRMODE_EXCEPTION impede que o PHP "vomite" dados sensíveis do banco na tela do usuário se algo der errado.
