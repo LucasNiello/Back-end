@@ -1,0 +1,5 @@
+Analizando o codigo, percebe-se que faltam alguns criterios faltantes, que o faiam melhorar:
+
+1. Filtros de busca e organização na lista dos livros;
+2. Tratamento de criação do banco de dados caso ele não exista (no conexao.php);
+3. Tratamento, SANITIZAÇÃO do codigo para espaços/caracteres inuteis ou extras desnecessários como espaços a mais ou onde não deveriam, por exemplo (trim).
